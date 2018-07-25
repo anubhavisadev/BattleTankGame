@@ -1,2 +1,3 @@
 # BattleTankGame
-An open-world tank game to learn.
+## Author: Anubhav Mehra
+*An open-world tank game desgined in unity engine which I am learning ATM.
