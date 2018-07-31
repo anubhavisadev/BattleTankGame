@@ -3,6 +3,7 @@
 #include "TankPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 
+
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -43,9 +44,20 @@ bool ATankPlayerController::GetWorldLocationPoint(FVector& LocationPoint)
 	GetViewportSize(X, Y);
 	FVector2D CrosshairScreenLocation = FVector2D(X*0.5, Y*0.33333);
 	FVector WorldLocation;
-	if (DeprojectScreenPositionToWorld(CrosshairScreenLocation.X, CrosshairScreenLocation.Y, WorldLocation, LocationPoint))
+	FVector WorldDirection;
+	if (DeprojectScreenPositionToWorld(CrosshairScreenLocation.X, CrosshairScreenLocation.Y, WorldLocation, WorldDirection))
 	{
-		return true;
+		FHitResult HitResult;
+		if (GetWorld()->LineTraceSingleByChannel(HitResult, WorldLocation, WorldDirection*Range, ECollisionChannel::ECC_Visibility))
+		{
+			LocationPoint = HitResult.Location;
+			return true;
+			
+		}
+		else
+		{
+			return false;
+		}
 	}
 	else 
 	{

@@ -22,6 +22,11 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	bool GetWorldLocationPoint(FVector& LocationPoint);
 	
 private:
-
-	ATank * ControlledTank = nullptr;
+	UPROPERTY(EditAnyWhere)
+		float RatioX = 0.5f;
+	UPROPERTY(EditAnyWhere)
+		float RatioY = 0.33333f;
+	UPROPERTY(EditAnyWhere)
+		int32 Range = 1000000;
+	ATank* ControlledTank = nullptr;
 };
