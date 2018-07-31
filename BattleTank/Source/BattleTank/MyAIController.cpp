@@ -11,16 +11,21 @@ ATank* AMyAIController::GetControlledTank() const
 void AMyAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	ControlledTank = GetControlledTank();
-	if (ControlledTank)
+	PlayerTank = GetPlayerTank();
+	if (PlayerTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AIController::BeginPlay Called from %s"), *(ControlledTank->GetName()));
+		UE_LOG(LogTemp, Warning, TEXT("AIController::BeginPlay found player %s"), *(PlayerTank->GetName()));
 
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Can't get any tanks to control!!"));
+		UE_LOG(LogTemp, Warning, TEXT("Can't find any player's tank."));
 
 	}
 	
+}
+
+ATank* AMyAIController::GetPlayerTank() const
+{
+	return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 }
